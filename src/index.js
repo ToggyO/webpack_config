@@ -1,5 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.sass';
+import { BrowserRouter } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
 
-ReactDOM.render(<div>hello! Yep!</div>, document.querySelector('#root'));
+import Routes from './Routes';
+
+ReactDOM.render(
+  <BrowserRouter>
+    <div>
+      { renderRoutes(Routes) }
+    </div>
+  </BrowserRouter>, document.querySelector('#root'));
