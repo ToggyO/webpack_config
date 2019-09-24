@@ -7,13 +7,14 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const baseConfig = require('./webpack.config.base');
+const { PATH, FILE_NAMES } = require('./constants/paths');
 
 module.exports = merge(baseConfig, {
     mode: 'production',
-    entry: './src/index.js',
+    entry: PATH.ENTRY_POINT,
     output: {
         filename: 'bundle.[chunkhash].js',
-        path: path.resolve('dist'),
+        path: path.resolve(PATH.OUTPUT),
         publicPath: '/',
     },
     optimization: {
@@ -33,7 +34,7 @@ module.exports = merge(baseConfig, {
     plugins: [
         new CompressionPlugin(),
         new HtmlWebpackPlugin({
-            template: './index.html',
+            template: FILE_NAMES.HWP_TEMPLATE,
         }),
         new CleanWebpackPlugin(),
         new webpack.DefinePlugin({

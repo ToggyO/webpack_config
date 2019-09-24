@@ -4,10 +4,11 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 
 const baseConfig = require('./webpack.config.base');
+const { PATH, FILE_NAMES } = require('./constants/paths');
 
 module.exports = merge(baseConfig, {
     mode: 'development',
-    entry: './src/index.js',
+    entry: PATH.ENTRY_POINT,
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'public'),
@@ -15,7 +16,7 @@ module.exports = merge(baseConfig, {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './index.html',
+            template: FILE_NAMES.HWP_TEMPLATE,
         }),
         new webpack.HotModuleReplacementPlugin(),
     ],
