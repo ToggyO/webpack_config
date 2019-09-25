@@ -11,19 +11,19 @@ export default [
             {
                 component: Home,
                 path: '/',
-                exact: true
+                exact: true,
             },
             {
                 component: About,
-                path: '/about'
+                path: '/about',
             },
             {
                 component: Todo,
-                path: '/Todo'
+                path: '/Todo',
             },
             {
-                component: NotFound
-            }
-        ]
-    }
+                component: NotFound,
+            },
+        ],
+    },
 ];
