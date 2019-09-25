@@ -1,3 +1,5 @@
+const WorkboxPlugin = require('workbox-webpack-plugin');
+
 module.exports = {
     target: 'web',
     module: {
@@ -10,7 +12,7 @@ module.exports = {
                     options: {
                         presets: [
                             '@babel/preset-react',
-                            ['@babel/env', { targets: { browsers: ['last 7 versions'] } }]
+                            ['@babel/env', { targets: { browsers: ['last 7 versions'] } }],
                         ],
                     },
                 },
@@ -21,6 +23,12 @@ module.exports = {
             },
         ],
     },
+    plugins: [
+        new WorkboxPlugin.GenerateSW({
+            clientsClaim: true,
+            skipWaiting: true,
+        }),
+    ],
     resolve: {
         extensions: ['.js', '.jsx'],
     },
