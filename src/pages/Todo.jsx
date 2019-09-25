@@ -25,10 +25,17 @@ const Todo = (props) => {
     );
 };
 
+const loadData = (store, param) => {
+    return store.dispatch(fetchTodos(param));
+};
+
 const mapStateToProps = ({ todos }) => ({ todos });
 
 const mapDispatchToProps = (dispatch) => ({
     getTodos: bindActionCreators(fetchTodos, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Todo);
+export default {
+    component: connect(mapStateToProps, mapDispatchToProps)(Todo),
+    loadData,
+};

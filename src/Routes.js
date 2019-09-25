@@ -6,23 +6,23 @@ import Todo from './pages/Todo';
 
 export default [
     {
-        component: App,
+        ...App,
         routes: [
             {
-                component: Home,
+                ...Home,
                 path: '/',
                 exact: true,
             },
             {
-                component: About,
+                ...About,
                 path: '/about',
             },
             {
-                component: Todo,
+                ...Todo,
                 path: '/Todo',
             },
             {
-                component: NotFound,
+                ...NotFound,
             },
         ],
     },

@@ -8,6 +8,19 @@ import { Provider } from 'react-redux';
 import Routes from './Routes';
 import { store } from './store';
 
+const rootElement = document.getElementById('root');
+if (rootElement.hasChildNodes()) {
+  ReactDOM.hydrate(
+    <Provider store={store}>
+      <BrowserRouter>
+        <div>
+          { renderRoutes(Routes) }
+        </div>
+      </BrowserRouter>
+    </Provider>
+    ,rootElement);
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
@@ -16,4 +29,4 @@ ReactDOM.render(
       </div>
     </BrowserRouter>
   </Provider>
-  ,document.querySelector('#root'));
+  ,rootElement);

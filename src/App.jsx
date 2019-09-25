@@ -11,4 +11,4 @@ App.default = {
   route: null,
 };
 
-export default App;
+export default { component: App };

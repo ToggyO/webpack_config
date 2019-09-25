@@ -31,4 +31,6 @@ const mapDispatchToProps = (dispatch) => ({
     helloSet: bindActionCreators(setHello, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(About);
+export default {
+  component: connect(mapStateToProps, mapDispatchToProps)(About),
+};

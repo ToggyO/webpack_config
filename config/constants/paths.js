@@ -1,5 +1,6 @@
 module.exports.PATH = {
-    ENTRY_POINT: './src/index.js',
+    ENTRY_CLIENT: './src/client.js',
+    ENTRY_SERVER: './src/server.js',
     OUTPUT: 'dist',
 };
 

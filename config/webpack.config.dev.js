@@ -8,11 +8,19 @@ const { PATH, FILE_NAMES } = require('./constants/paths');
 
 module.exports = merge(baseConfig, {
     mode: 'development',
-    entry: PATH.ENTRY_POINT,
+    entry: PATH.ENTRY_CLIENT,
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'public'),
         publicPath: '/',
+    },
+    module: {
+      rules: [
+          {
+              test: /\.s[ac]ss$/i,
+              use: ['style-loader', 'css-loader', 'sass-loader'],
+          },
+      ],
     },
     plugins: [
         new HtmlWebpackPlugin({

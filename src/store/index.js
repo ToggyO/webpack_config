@@ -10,6 +10,15 @@ const composeEnhancers =
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : compose;
 
+// eslint-disable-next-line no-unused-vars
+let state;
+if (typeof window !== 'undefined') {
+  // eslint-disable-next-line no-underscore-dangle
+  state = window.__PRELOADED_STATE__;
+  // eslint-disable-next-line no-underscore-dangle
+  delete window.__PRELOADED_STATE__;
+}
+
 const store = createStore(
   reducers,
   undefined,
