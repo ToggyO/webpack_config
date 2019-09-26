@@ -48,6 +48,10 @@ module.exports = merge(baseConfig, {
         new WorkboxPlugin.InjectManifest({
             swSrc: './src/service-worker.js',
             swDest: 'service-worker.js',
+            runtimeCaching: [{
+                urlPattern: 'https://jsonplaceholder.typicode.com/todos',
+                handler: 'NetworkFirst',
+            }],
         }),
         new CleanWebpackPlugin(),
         new webpack.DefinePlugin({
