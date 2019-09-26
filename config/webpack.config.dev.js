@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 const baseConfig = require('./webpack.config.base');
 const { PATH, FILE_NAMES } = require('./constants/paths');
@@ -25,6 +26,10 @@ module.exports = merge(baseConfig, {
     plugins: [
         new HtmlWebpackPlugin({
             template: FILE_NAMES.HWP_TEMPLATE,
+        }),
+        new WorkboxPlugin.InjectManifest({
+            swSrc: './src/service-worker.js',
+            swDest: 'service-worker.js',
         }),
         new webpack.HotModuleReplacementPlugin(),
     ],

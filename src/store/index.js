@@ -5,11 +5,17 @@ import reducers from './reducers';
 
 const middleware = [thunk];
 
-const composeEnhancers =
-  typeof window !== 'undefined'
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    : compose;
+// const composeEnhancers =
+//   typeof window !== 'undefined'
+//     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+//     : compose;
 
+const composeEnhancers =
+    typeof window === 'object' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
+
+// взятие html из store при обновлении страницы
 // eslint-disable-next-line no-unused-vars
 let state;
 if (typeof window !== 'undefined') {

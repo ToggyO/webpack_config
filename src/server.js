@@ -1,11 +1,12 @@
+import '@babel/polyfill';
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+import ReactDOMServer from 'react-dom/server';
+import path from 'path';
 import { StaticRouter } from 'react-router-dom';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import express from 'express';
 import { Provider } from 'react-redux';
 import serialize from 'serialize-javascript';
-import '@babel/polyfill';
 
 import Routes from './Routes';
 import { store } from './store';
@@ -15,8 +16,9 @@ const app = express();
 
 app.use(express.static('dist'));
 
+// eslint-disable-next-line no-shadow
 const renderer = (req, store, context) => {
-  const content = renderToString(
+  const content = ReactDOMServer.renderToString(
     <Provider store={store}>
       <StaticRouter location={req.path} context={context}>
         <div>
@@ -39,9 +41,23 @@ const renderer = (req, store, context) => {
             <body>
                 <div id="root">${content}</div>
                 <script>
-                  
+                   window.__PRELOADED_STATE__ = ${serialize(store.getState()).replace(
+                      /</g,
+                      '\\u003c',
+                    )}
                 </script>
                 <script src="/${assetsByChunkName.main[1]}"></script>
+                <script>
+                  if ('serviceWorker' in navigator) {
+                    window.addEventListener('load', () => {
+                        navigator.serviceWorker.register('/service-worker.js').then(registration => {
+                            console.log('ServiceWorker registered: ', registration);
+                        }).catch(registrationError => {
+                            console.log('ServiceWorker registration failed: ', registrationError);
+                        });
+                    });
+                  }
+                </script>
             </body>
           </html>`;
 };
@@ -76,6 +92,10 @@ app.get('*', (req, res) => {
 
     res.send(content);
   });
+});
+
+app.get('/service-worker.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'serviceWorker.js'));
 });
 
 app.listen(3000, () => {
