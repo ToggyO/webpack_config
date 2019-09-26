@@ -19,7 +19,8 @@ const Todo = (props) => {
         <Link to="/">Home</Link>
         <br />
         <br />
-        {todos.map(todo => <p key={todo.id}>{todo.id} {todo.title}</p>)}
+        {todos.map(todo => <p key={todo.title}>{todo.title} {todo.icon}</p>)}
+        {/* {todos.map(todo => <p key={todo.id}>{todo.id} {todo.title}</p>)} */}
         <br />
       </div>
     );

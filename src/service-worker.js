@@ -3,7 +3,7 @@ workbox.core.skipWaiting();
 workbox.core.clientsClaim();
 
 workbox.routing.registerRoute(
-    'https://jsonplaceholder.typicode.com/todos',
+    'https://magora-react-university-api.herokuapp.com/categories',
     new workbox.strategies.NetworkFirst({
         cacheName: 'todo',
     })

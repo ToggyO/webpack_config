@@ -94,9 +94,9 @@ app.get('*', (req, res) => {
   });
 });
 
-app.get('/service-worker.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'serviceWorker.js'));
-});
+// app.get('/service-worker.js', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'dist', 'serviceWorker.js'));
+// });
 
 app.listen(3000, () => {
   console.log('Server on port 3000');
