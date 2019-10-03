@@ -3,11 +3,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { StatsWriterPlugin } = require('webpack-stats-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
 
 const baseConfig = require('./webpack.config.base');
 const { PATH, FILE_NAMES } = require('./constants/paths');
@@ -21,7 +24,12 @@ module.exports = merge(baseConfig, {
         publicPath: '/',
     },
     optimization: {
+        minimize: true,
         minimizer: [
+            new TerserPlugin({
+                test: /\.js(\?.*)?$/i,
+                parallel: true,
+            }),
             new UglifyJsPlugin({
                 cache: true,
                 parallel: true,
@@ -32,6 +40,7 @@ module.exports = merge(baseConfig, {
                     mangle: true,
                 },
             }),
+            new OptimizeCSSAssetsPlugin({}),
         ],
     },
     module: {
@@ -59,10 +68,10 @@ module.exports = merge(baseConfig, {
         new HtmlWebpackPlugin({
             template: FILE_NAMES.HWP_TEMPLATE,
         }),
-        new WorkboxPlugin.InjectManifest({
-            swSrc: './src/service-worker.js',
-            swDest: 'service-worker.js',
+        new MiniCssExtractPlugin({
+            filename: 'styles.[chunkhash].css',
         }),
+
         new CleanWebpackPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
@@ -76,8 +85,9 @@ module.exports = merge(baseConfig, {
                 assets: true,
             },
         }),
-        new MiniCssExtractPlugin({
-            filename: 'styles.[chunkhash].css',
+        new WorkboxPlugin.InjectManifest({
+            swSrc: './src/service-worker.js',
+            swDest: 'service-worker.js',
         }),
     ],
     devtool: 'inline-source-map',

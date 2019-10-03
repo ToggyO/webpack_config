@@ -5,9 +5,9 @@ const Home = () => {
     return (
       <div>
         <h1>Home</h1>
-        <Link to="/about">About</Link>
+        <Link to="/about" className="test-class">About</Link>
         <br />
-        <Link to="/todo">Todo</Link>
+        <Link to="/todo" className="test-class">Todo</Link>
       </div>
     );
 };

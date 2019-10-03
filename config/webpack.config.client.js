@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -18,6 +19,23 @@ module.exports = merge(baseConfig, {
         filename: 'bundle.[chunkhash].js',
         path: path.resolve(PATH.OUTPUT),
         publicPath: '/',
+    },
+    optimization: {
+        minimizer: [
+            new TerserPlugin({
+                test: /\.js(\?.*)?$/i,
+            }),
+            // new UglifyJsPlugin({
+            //     cache: true,
+            //     parallel: true,
+            //     sourceMap: false,
+            //     uglifyOptions: {
+            //         ecma: 8,
+            //         compress: false,
+            //         mangle: true,
+            //     },
+            // }),
+        ],
     },
     module: {
       rules: [
@@ -38,20 +56,6 @@ module.exports = merge(baseConfig, {
               ],
           },
       ],
-    },
-    optimization: {
-        minimizer: [
-            new UglifyJsPlugin({
-                cache: true,
-                parallel: true,
-                sourceMap: false,
-                uglifyOptions: {
-                    ecma: 8,
-                    compress: false,
-                    mangle: true,
-                },
-            }),
-        ],
     },
     plugins: [
         new CompressionPlugin(),
