@@ -19,7 +19,18 @@ module.exports = merge(baseConfig, {
         rules: [
             {
                 test: /\.s[ac]ss$/i,
-                use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+                use: ['style-loader',
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            config: {
+                                path: './config/',
+                            },
+                        },
+                    },
+                    'sass-loader'
+                ],
             },
         ],
     },

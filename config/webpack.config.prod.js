@@ -37,7 +37,19 @@ module.exports = merge(baseConfig, {
         rules: [
             {
                 test: /\.s[ac]ss$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            config: {
+                                path: './config/',
+                            },
+                        },
+                    },
+                    'sass-loader',
+                ],
             },
         ],
     },
