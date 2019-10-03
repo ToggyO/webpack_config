@@ -6,6 +6,8 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { StatsWriterPlugin } = require('webpack-stats-plugin');
 
 const baseConfig = require('./webpack.config.base');
 const { PATH, FILE_NAMES } = require('./constants/paths');
@@ -32,11 +34,19 @@ module.exports = merge(baseConfig, {
             }),
         ],
     },
+    // module: {
+    //     rules: [
+    //         {
+    //             test: /\.s[ac]ss$/i,
+    //             use: ['style-loader', 'css-loader', 'sass-loader'],
+    //         },
+    //     ],
+    // },
     module: {
         rules: [
             {
                 test: /\.s[ac]ss$/i,
-                use: ['style-loader', 'css-loader', 'sass-loader'],
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
             },
         ],
     },
@@ -48,16 +58,22 @@ module.exports = merge(baseConfig, {
         new WorkboxPlugin.InjectManifest({
             swSrc: './src/service-worker.js',
             swDest: 'service-worker.js',
-            runtimeCaching: [{
-                urlPattern: 'https://jsonplaceholder.typicode.com/todos',
-                handler: 'NetworkFirst',
-            }],
         }),
         new CleanWebpackPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify('production'),
             },
+        }),
+        new StatsWriterPlugin({
+            filename: 'stats.json',
+            stats: {
+                all: false,
+                assets: true,
+            },
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'styles.[chunkhash].css',
         }),
     ],
     devtool: 'inline-source-map',

@@ -17,13 +17,13 @@ const composeEnhancers =
 
 // взятие html из store при обновлении страницы
 // eslint-disable-next-line no-unused-vars
-let state;
-if (typeof window !== 'undefined') {
-  // eslint-disable-next-line no-underscore-dangle
-  state = window.__PRELOADED_STATE__;
-  // eslint-disable-next-line no-underscore-dangle
-  delete window.__PRELOADED_STATE__;
-}
+// let state;
+// if (typeof window !== 'undefined') {
+//   // eslint-disable-next-line no-underscore-dangle
+//   state = window.__PRELOADED_STATE__;
+//   // eslint-disable-next-line no-underscore-dangle
+//   delete window.__PRELOADED_STATE__;
+// }
 
 const store = createStore(
   reducers,
