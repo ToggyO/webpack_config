@@ -12,7 +12,7 @@ const { PATH, FILE_NAMES } = require('./constants/paths');
 
 module.exports = merge(baseConfig, {
     mode: 'production',
-    entry: PATH.ENTRY_CLIENT,
+    entry: PATH.ENTRY_INDEX,
     output: {
         filename: 'bundle.[chunkhash].js',
         path: path.resolve(PATH.OUTPUT),

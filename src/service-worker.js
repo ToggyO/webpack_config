@@ -9,4 +9,11 @@ workbox.routing.registerRoute(
     })
 );
 
+workbox.routing.registerRoute(
+    new RegExp('/*'),
+    new workbox.strategies.NetworkFirst({
+        cacheName: 'todo_page',
+    })
+);
+
 workbox.precaching.precacheAndRoute(self.__precacheManifest);

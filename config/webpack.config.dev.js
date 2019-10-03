@@ -9,7 +9,7 @@ const { PATH, FILE_NAMES } = require('./constants/paths');
 
 module.exports = merge(baseConfig, {
     mode: 'development',
-    entry: PATH.ENTRY_CLIENT,
+    entry: PATH.ENTRY_INDEX,
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'public'),
