@@ -27,24 +27,20 @@ module.exports = merge(baseConfig, {
         new HtmlWebpackPlugin({
             template: FILE_NAMES.HWP_TEMPLATE,
         }),
-        // new WorkboxPlugin.InjectManifest({
-        //     swSrc: './src/service-worker.js',
+        new WorkboxPlugin.InjectManifest({
+            swSrc: './src/service-worker.js',
+            swDest: 'service-worker.js',
+        }),
+        // new WorkboxPlugin.GenerateSW({
         //     swDest: 'service-worker.js',
         //     runtimeCaching: [{
         //         urlPattern: new RegExp('https://jsonplaceholder.typicode.com/todos'),
         //         handler: 'NetworkFirst',
+        //         options: {
+        //             cacheName: 'my-api-cache',
+        //         },
         //     }],
         // }),
-        new WorkboxPlugin.GenerateSW({
-            swDest: 'service-worker.js',
-            runtimeCaching: [{
-                urlPattern: new RegExp('https://jsonplaceholder.typicode.com/todos'),
-                handler: 'NetworkFirst',
-                options: {
-                    cacheName: 'my-api-cache',
-                },
-            }],
-        }),
         new webpack.HotModuleReplacementPlugin(),
     ],
     devServer: {
