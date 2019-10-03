@@ -6,7 +6,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
-var MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const baseConfig = require('./webpack.config.base');
 const { PATH, FILE_NAMES } = require('./constants/paths');
@@ -33,6 +33,14 @@ module.exports = merge(baseConfig, {
             }),
         ],
     },
+    module: {
+        rules: [
+            {
+                test: /\.s[ac]ss$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+            },
+        ],
+    },
     plugins: [
         new CompressionPlugin(),
         new HtmlWebpackPlugin({
@@ -47,6 +55,9 @@ module.exports = merge(baseConfig, {
             'process.env': {
                 NODE_ENV: JSON.stringify('production'),
             },
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'styles.[chunkhash].css',
         }),
     ],
     devtool: 'inline-source-map',
