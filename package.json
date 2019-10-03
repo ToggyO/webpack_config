@@ -8,7 +8,7 @@
     "build:spa": "webpack -p --config config/webpack.config.spa.js --mode production",
     "build:client": "webpack -p --config config/webpack.config.client.js --mode production",
     "build:server": "webpack -p --config config/webpack.config.server.js --mode production",
-    "server": "nodemon server_spa.js",
+    "server": "nodemon server.spa.js",
     "serve": "serve dist"
   },
   "author": "ToggyO",
