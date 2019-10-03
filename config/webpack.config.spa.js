@@ -34,19 +34,23 @@ module.exports = merge(baseConfig, {
             }),
         ],
     },
-    // module: {
-    //     rules: [
-    //         {
-    //             test: /\.s[ac]ss$/i,
-    //             use: ['style-loader', 'css-loader', 'sass-loader'],
-    //         },
-    //     ],
-    // },
     module: {
         rules: [
             {
                 test: /\.s[ac]ss$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            config: {
+                                path: './config/',
+                            },
+                        },
+                    },
+                    'sass-loader',
+                ],
             },
         ],
     },

@@ -8,6 +8,7 @@
     "build:spa": "webpack -p --config config/webpack.config.spa.js --mode production",
     "build:client": "webpack -p --config config/webpack.config.client.js --mode production",
     "build:server": "webpack -p --config config/webpack.config.server.js --mode production",
+    "server": "nodemon server_spa.js",
     "serve": "serve dist"
   },
   "author": "ToggyO",
@@ -33,6 +34,7 @@
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.12.0",
+    "nodemon": "^1.19.3",
     "null-loader": "^3.0.0",
     "sass-loader": "^8.0.0",
     "serve": "^11.1.0",
@@ -47,8 +49,10 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.6.0",
+    "autoprefixer": "^9.6.1",
     "axios": "^0.19.0",
     "express": "^4.17.1",
+    "postcss-loader": "^3.0.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
