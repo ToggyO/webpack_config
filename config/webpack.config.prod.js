@@ -2,11 +2,13 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const TerserPlugin = require('terser-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const baseConfig = require('./webpack.config.base');
 const { PATH, FILE_NAMES } = require('./constants/paths');
@@ -21,6 +23,9 @@ module.exports = merge(baseConfig, {
     },
     optimization: {
         minimizer: [
+            new TerserPlugin({
+                test: /\.js(\?.*)?$/i,
+            }),
             new UglifyJsPlugin({
                 cache: true,
                 parallel: true,
@@ -31,6 +36,7 @@ module.exports = merge(baseConfig, {
                     mangle: true,
                 },
             }),
+            new OptimizeCSSAssetsPlugin({}),
         ],
     },
     module: {
