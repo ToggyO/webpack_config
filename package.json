@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --config config/webpack.config.dev.js --mode development",
     "build": "webpack -p --config config/webpack.config.prod.js --mode production",
-    "server": "node server_spa.js",
+    "server": "nodemon server_spa.js",
     "serve": "serve dist"
   },
   "author": "ToggyO",

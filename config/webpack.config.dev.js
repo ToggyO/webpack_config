@@ -15,6 +15,14 @@ module.exports = merge(baseConfig, {
         path: path.resolve(__dirname, 'public'),
         publicPath: '/',
     },
+    module: {
+        rules: [
+            {
+                test: /\.s[ac]ss$/i,
+                use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+            },
+        ],
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: FILE_NAMES.HWP_TEMPLATE,
