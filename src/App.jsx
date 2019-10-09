@@ -1,4 +1,6 @@
+import { hot } from 'react-hot-loader';
 import React from 'react';
+
 import { renderRoutes } from 'react-router-config';
 
 import './App.sass';
@@ -11,4 +13,4 @@ App.default = {
   route: null,
 };
 
-export default { component: App };
+export default hot(module)({ component: App });

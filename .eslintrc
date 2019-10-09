@@ -27,7 +27,7 @@
 //    "no-use-before-define": 0,
 //    "react/jsx-one-expression-per-line": 0,
     "import/prefer-default-export": 0,
-//    "global-require": 0,
+    "global-require": 0,
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
@@ -39,6 +39,8 @@
     "no-debugger": "off",
     "padded-blocks": "error",
     "no-trailing-spaces": "error",
-    "comma-dangle": "error"
+    "comma-dangle": "error",
+    "react/jsx-indent": [2, 2],
+    "react/jsx-indent-props": [2, 2]
   }
 }
