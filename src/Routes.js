@@ -3,6 +3,7 @@ import About from './pages/About';
 import NotFound from './pages/NotFound';
 import App from './App';
 import Todo from './pages/Todo';
+import Form from './pages/Form';
 
 export default [
     {
@@ -20,6 +21,10 @@ export default [
             {
                 ...Todo,
                 path: '/Todo',
+            },
+            {
+                ...Form,
+                path: '/form',
             },
             {
                 ...NotFound,
