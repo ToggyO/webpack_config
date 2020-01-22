@@ -8,7 +8,7 @@ import { fetchTodos } from '../store/actions/todo';
 /* eslint-disable react/jsx-one-expression-per-line */
 const Todo = (props) => {
     const { todos, getTodos } = props;
-
+    debugger
     useEffect(() => {
       getTodos();
     },[]);

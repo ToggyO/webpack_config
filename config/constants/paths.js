@@ -1,7 +1,7 @@
 module.exports.PATH = {
-    ENTRY_INDEX: './src/index.js',
-    ENTRY_CLIENT: './src/client.js',
-    ENTRY_SERVER: './src/server.js',
+    ENTRY_INDEX: './src/index.tsx',
+    ENTRY_CLIENT: './src/client.ts',
+    ENTRY_SERVER: './src/server.ts',
     OUTPUT: 'dist',
 };
 

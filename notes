@@ -1,0 +1,33 @@
+1. tsconfig.json preferences:
+	target: "es5" - в какой синтаксис компилировать
+	module: "commonjs" - влияет на синтаксис import/require при использовании webpack
+	allowJs: true - позволяет писать на JavaScript
+	jsx: "preserve" - позволяет использовать jsx разметку в файлах с раширением .tsx
+
+2. Change extension for all JavasScript file to .ts for .js files and .tsx for .jsx.
+
+3. Configure webpack:
+    - webpack.config.base: add extensions .ts, .tsx to resolve key
+
+4. Change parameters in ./config/constants/path.js
+
+5. Install package '@babel/preset-typescript' and add '@babel/preset-typescript' to .babelrc in 'presets' array.
+
+6. If you are not using babel, install 'ts-loader' package and add it to webpack.config.
+
+7. Configure .eslintrc for linting TypeScript:
+    a. npm i -D @typescript-eslint/parser @typescript-eslint/eslint-plugin
+    b. change the 'parser' value in '@typescript-eslint/parser'
+    c. add '@typescript-eslint' in 'plugins' array
+    d. add 'plugin:@typescript-eslint/recommended' in 'extends' array
+
+8. Install packages those packages with flag -D:
+    @types/express,
+    @types/node,
+    @types/react-redux,
+    @typescript-eslint/eslint-plugin,
+    @typescript-eslint/parser,
+    @types/react,
+    @types/react-dom,
+    @types/react-router-config,
+    @types/react-router-dom,

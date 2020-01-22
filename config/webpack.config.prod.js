@@ -65,7 +65,7 @@ module.exports = merge(baseConfig, {
             template: FILE_NAMES.HWP_TEMPLATE,
         }),
         new WorkboxPlugin.InjectManifest({
-            swSrc: './src/service-worker.js',
+            swSrc: './src/service-worker.ts',
             swDest: 'service-worker.js',
         }),
         new CleanWebpackPlugin(),
