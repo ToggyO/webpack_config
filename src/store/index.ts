@@ -1,19 +1,28 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-import reducers from './reducers';
+import todosReducer, { todoTypes } from '@store/todos';
+import helloReducer, { helloTypes } from '@store/hello';
 
-const middleware = [thunk];
 
-const composeEnhancers =
-  typeof window !== 'undefined'
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    : compose;
+export interface ApplicationState {
+	todos: todoTypes.TodosState;
+	hello: helloTypes.HelloState;
+}
+
+const reducers = combineReducers({
+	todos: todosReducer,
+	hello: helloReducer,
+});
+
+const middlewares = [thunk];
 
 const store = createStore(
-  reducers,
-  undefined,
-  composeEnhancers(applyMiddleware(...middleware)),
+	reducers,
+	undefined,
+	composeWithDevTools(applyMiddleware(...middlewares)),
 );
 
 export { store };

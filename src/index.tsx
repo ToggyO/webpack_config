@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { Provider } from 'react-redux';
 
+import * as test from '@pages';
 import Routes from './Routes';
 import { store } from './store';
 

@@ -1,10 +1,17 @@
-module.exports.PATH = {
-    ENTRY_INDEX: './src/index.tsx',
-    ENTRY_CLIENT: './src/client.ts',
-    ENTRY_SERVER: './src/server.ts',
-    OUTPUT: 'dist',
-};
+const path = require('path');
+const fs = require('fs');
 
-module.exports.FILE_NAMES = {
-    HWP_TEMPLATE: './index.html',
+const appDirectory = fs.realpathSync(process.cwd());
+const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
+
+
+module.exports = {
+    resolveApp,
+    appSrc: resolveApp('src'), // App source
+    appAssets: resolveApp('src/assets'), // For images and other assets
+    appHtml: resolveApp('index.html'), // html template
+    appIndexTsx: resolveApp('src/index.tsx'), // Main entry point
+    appFavicon: resolveApp('src/assets/favicons/favicon.ico'), // Main favicon
+    appBuild: resolveApp('dist'), // Prod built client files end up here
+    // appBuildAssets: resolveApp('dist/assets'), // Prod built client files end up here
 };

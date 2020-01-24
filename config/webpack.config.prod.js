@@ -9,16 +9,18 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const baseConfig = require('./webpack.config.base');
-const { PATH, FILE_NAMES } = require('./constants/paths');
+const paths = require('./constants/paths');
+
 
 module.exports = merge(baseConfig, {
     mode: 'production',
-    entry: PATH.ENTRY_INDEX,
+    entry: paths.appIndexTsx,
     output: {
         filename: 'bundle.[chunkhash].js',
-        path: path.resolve(PATH.OUTPUT),
+        path: path.appBuild,
         publicPath: '/',
     },
     optimization: {
@@ -60,9 +62,10 @@ module.exports = merge(baseConfig, {
         ],
     },
     plugins: [
+        new ForkTsCheckerWebpackPlugin(),
         new CompressionPlugin(),
         new HtmlWebpackPlugin({
-            template: FILE_NAMES.HWP_TEMPLATE,
+            template: paths.appHtml,
         }),
         new WorkboxPlugin.InjectManifest({
             swSrc: './src/service-worker.ts',

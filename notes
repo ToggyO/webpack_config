@@ -8,6 +8,8 @@
 
 3. Configure webpack:
     - webpack.config.base: add extensions .ts, .tsx to resolve key
+    - add new ForkTsCheckerWebpackPlugin() in 'plugins' array
+
 
 4. Change parameters in ./config/constants/path.js
 
@@ -31,3 +33,4 @@
     @types/react-dom,
     @types/react-router-config,
     @types/react-router-dom,
+

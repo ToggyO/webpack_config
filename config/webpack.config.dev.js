@@ -3,16 +3,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const baseConfig = require('./webpack.config.base');
-const { PATH, FILE_NAMES } = require('./constants/paths');
+const paths = require('./constants/paths');
+
 
 module.exports = merge(baseConfig, {
     mode: 'development',
-    entry: PATH.ENTRY_INDEX,
+    entry: paths.appIndexTsx,
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'public'),
+        path: path.appBuild,
         publicPath: '/',
     },
     module: {
@@ -36,8 +38,9 @@ module.exports = merge(baseConfig, {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: FILE_NAMES.HWP_TEMPLATE,
+            template: paths.appHtml,
         }),
+        // new ForkTsCheckerWebpackPlugin(),
         new WorkboxPlugin.InjectManifest({
             swSrc: './src/service-worker.ts',
             swDest: 'service-worker.js',

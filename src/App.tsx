@@ -3,12 +3,17 @@ import { renderRoutes } from 'react-router-config';
 
 import './App.sass';
 
-const App = ({ route }) => {
+// interface IRoutes {
+//   default:
+// }
+
+const App: React.FC = ({ route }) => {
   return <div>{ renderRoutes(route.routes) }</div>;
+  // return <div>{ renderRoutes(route.routes) }</div>;
 };
 
-App.default = {
-  route: null,
-};
+// App.default = {
+//   route: null,
+// };
 
 export default App;

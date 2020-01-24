@@ -1,12 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Dispatch } from 'redux';
 
-import { setHello } from '../store/actions/hello';
+import { helloActions } from '@store/hello/';
+import { ApplicationState } from '@store/index';
+import { helloTypes } from '@store/hello/';
 
-const About = (props) => {
-    const { hello, helloSet } = props;
+interface PropsFromState {
+  hello: helloTypes.HelloState;
+}
+
+interface PropsFromDispatch {
+  setHello(message: string): void;
+}
+
+type AllProps = PropsFromState & PropsFromDispatch;
+
+const About: React.FC<AllProps> = (props) => {
+    const { hello, setHello } = props;
 
     return (
       <div>
@@ -17,7 +29,7 @@ const About = (props) => {
         <br />
         <button
           type="button"
-          onClick={() => helloSet('HELLO!')}
+          onClick={() => setHello('HELLO!')}
         >
           Hello!
         </button>
@@ -25,10 +37,12 @@ const About = (props) => {
     );
 };
 
-const mapStateToProps = ({ hello }) => ({ hello });
+const mapStateToProps = ({ hello }: ApplicationState): PropsFromState => ({ hello });
 
-const mapDispatchToProps = (dispatch) => ({
-    helloSet: bindActionCreators(setHello, dispatch),
+const mapDispatchToProps = (dispatch: Dispatch): PropsFromDispatch => ({
+  setHello(message: string) {
+    dispatch(helloActions.setHello(message));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(About);

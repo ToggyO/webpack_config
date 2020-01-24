@@ -1,34 +1,50 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Dispatch } from 'redux';
 
-import { fetchTodos } from '../store/actions/todo';
+import { ApplicationState } from '@store/index';
+import { todoTypes, todoActions } from '@store/todos';
+
+
+interface PropsFromState {
+  todos: todoTypes.TodosItemResponse[];
+}
+
+interface PropsFromDispatch {
+  getTodos(): void;
+}
+
+type AllProps = PropsFromState & PropsFromDispatch;
 
 /* eslint-disable react/jsx-one-expression-per-line */
-const Todo = (props) => {
-    const { todos, getTodos } = props;
-    debugger
-    useEffect(() => {
-      getTodos();
-    },[]);
+const Todo: React.FC<AllProps> = (props) => {
+  const { todos, getTodos } = props;
+  debugger
+  useEffect(() => {
+    getTodos();
+  }, []);
 
-    return (
-      <div>
-        <h1>Todo</h1>
-        <Link to="/">Home</Link>
-        <br />
-        <br />
-        {todos.map(todo => <p key={todo.id}>{todo.id} {todo.title}</p>)}
-        <br />
-      </div>
-    );
+  if (todos.length > 0) console.log(todos);
+
+  return (
+    <div>
+      <h1>Todo</h1>
+      <Link to="/">Home</Link>
+      <br />
+      <br />
+      {todos.todos.map(todo => <p key={todo.id}>{todo.id} {todo.title}</p>)}
+      <br />
+    </div>
+  );
 };
 
-const mapStateToProps = ({ todos }) => ({ todos });
+const mapStateToProps = ({ todos }: ApplicationState['todos']): PropsFromState => ({ todos });
 
-const mapDispatchToProps = (dispatch) => ({
-    getTodos: bindActionCreators(fetchTodos, dispatch),
+const mapDispatchToProps = (dispatch: Dispatch): PropsFromDispatch => ({
+  getTodos() {
+    dispatch(todoActions.fetchTodos());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todo);
