@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { helloActions, helloTypes } from '@store/hello/';
-import { ApplicationState } from '@store/index';
+import { helloActions, helloSelectors, helloTypes } from '@store/hello/';
+import { ApplicationState } from '@store';
 
 
 interface PropsFromState {
@@ -37,7 +37,9 @@ const About: React.FC<AllProps> = (props) => {
     );
 };
 
-const mapStateToProps = ({ hello }: ApplicationState): PropsFromState => ({ hello });
+const mapStateToProps = (state: ApplicationState) => ({
+  hello: helloSelectors.helloSelector(state),
+});
 
 const mapDispatchToProps = (dispatch: Dispatch): PropsFromDispatch => ({
   setHello(message: string) {
@@ -45,4 +47,7 @@ const mapDispatchToProps = (dispatch: Dispatch): PropsFromDispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(About);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(About);

@@ -38,5 +38,10 @@
     - add folders with files: config, services
     - change 'store' folder architecture
 
-10. Convert Redux configure files from javascript to typescript.
+10. Add 'redux-saga'.
 
+11. Convert 'redux' configure files from javascript to typescript.
+
+12. Add 'reselect' adn convert to typescript.
+
+13. Convert 'react' files to typescript (components & connect functions).

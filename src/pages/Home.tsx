@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { writeToLocalState } from '@services/ls';
 
 
-const Home = () => {
+const Home: React.FC = () => {
     return (
       <div>
         <h1>Home</h1>

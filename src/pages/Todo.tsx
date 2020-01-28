@@ -37,7 +37,6 @@ const Todo: React.FC<AllProps> = (props) => {
   );
 };
 
-// const mapStateToProps = ({ todos }: ApplicationState['todos']): PropsFromState => ({ todos });
 const mapStateToProps = (state: ApplicationState) => ({
   todos: todoSelectors.todosSelector(state),
 });
@@ -48,4 +47,7 @@ const mapDispatchToProps = (dispatch: Dispatch): PropsFromDispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Todo);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Todo);
