@@ -9,7 +9,7 @@
 3. Configure webpack:
     - webpack.config.base: add extensions .ts, .tsx to resolve key
     - add new ForkTsCheckerWebpackPlugin() in 'plugins' array
-
+    - add aliases (change file 'paths.js'), add aliases to tsconfig.json
 
 4. Change parameters in ./config/constants/path.js
 
@@ -33,4 +33,10 @@
     @types/react-dom,
     @types/react-router-config,
     @types/react-router-dom,
+
+9. Change project architecture:
+    - add folders with files: config, services
+    - change 'store' folder architecture
+
+10. Convert Redux configure files from javascript to typescript.
 

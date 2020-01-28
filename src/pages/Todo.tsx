@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { ApplicationState } from '@store/index';
-import { todoTypes, todoActions } from '@store/todos';
+import { ApplicationState } from '@store';
+import { todoTypes, todoActions, todoSelectors } from '@store/todos';
 
 
 interface PropsFromState {
@@ -20,12 +20,10 @@ type AllProps = PropsFromState & PropsFromDispatch;
 /* eslint-disable react/jsx-one-expression-per-line */
 const Todo: React.FC<AllProps> = (props) => {
   const { todos, getTodos } = props;
-  debugger
+
   useEffect(() => {
     getTodos();
   }, []);
-
-  if (todos.length > 0) console.log(todos);
 
   return (
     <div>
@@ -33,13 +31,16 @@ const Todo: React.FC<AllProps> = (props) => {
       <Link to="/">Home</Link>
       <br />
       <br />
-      {todos.todos.map(todo => <p key={todo.id}>{todo.id} {todo.title}</p>)}
+      {todos.map(todo => <p key={todo.id}>{todo.id} {todo.title}</p>)}
       <br />
     </div>
   );
 };
 
-const mapStateToProps = ({ todos }: ApplicationState['todos']): PropsFromState => ({ todos });
+// const mapStateToProps = ({ todos }: ApplicationState['todos']): PropsFromState => ({ todos });
+const mapStateToProps = (state: ApplicationState) => ({
+  todos: todoSelectors.todosSelector(state),
+});
 
 const mapDispatchToProps = (dispatch: Dispatch): PropsFromDispatch => ({
   getTodos() {

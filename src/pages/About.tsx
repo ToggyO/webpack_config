@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { helloActions } from '@store/hello/';
+import { helloActions, helloTypes } from '@store/hello/';
 import { ApplicationState } from '@store/index';
-import { helloTypes } from '@store/hello/';
+
 
 interface PropsFromState {
   hello: helloTypes.HelloState;

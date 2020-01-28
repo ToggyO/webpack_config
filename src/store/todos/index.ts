@@ -2,7 +2,13 @@ import { todosReducer } from './reducer';
 
 import * as todoTypes from './types';
 import * as todoActions from './actions';
-import * as todoThunks from './thunks';
+import * as todoSelectors from './selectors';
+import * as todoSagas from './sagas';
 
-export { todoTypes, todoActions, todoThunks };
+export {
+	todoTypes,
+	todoActions,
+	todoSelectors,
+	todoSagas,
+};
 export default todosReducer;

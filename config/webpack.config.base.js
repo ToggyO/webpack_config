@@ -52,7 +52,7 @@ module.exports = {
             '@store': paths.resolveApp('src/store/'),
             '@pages': paths.resolveApp('src/pages/'),
             '@routes': paths.resolveApp('src/routes.ts'),
-            // '@services': paths.resolveApp('src/services/'),
+            '@services': paths.resolveApp('src/services/'),
             '@styles': paths.resolveApp('src/styles/'),
             '@utils': paths.resolveApp('src/utils/'),
         },

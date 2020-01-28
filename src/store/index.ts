@@ -1,9 +1,9 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import thunk from 'redux-thunk';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import todosReducer, { todoTypes } from '@store/todos';
+import todosReducer, { todoTypes, todoSagas } from '@store/todos';
 import helloReducer, { helloTypes } from '@store/hello';
 
 
@@ -12,17 +12,26 @@ export interface ApplicationState {
 	hello: helloTypes.HelloState;
 }
 
-const reducers = combineReducers({
-	todos: todosReducer,
-	hello: helloReducer,
-});
+function configureStore() {
+	const reducers = combineReducers({
+		todos: todosReducer,
+		hello: helloReducer,
+	});
+	const sagas = {
+		...todoSagas,
+	};
+	const sagaMiddleware = createSagaMiddleware();
+	const middlewares = [sagaMiddleware];
+	const store = createStore(
+		reducers,
+		undefined,
+		composeWithDevTools(applyMiddleware(...middlewares)),
+	);
+	Object.values(sagas).forEach((saga: any) => sagaMiddleware.run(saga));
+	return store;
+}
 
-const middlewares = [thunk];
+export const store = configureStore();
 
-const store = createStore(
-	reducers,
-	undefined,
-	composeWithDevTools(applyMiddleware(...middlewares)),
-);
 
-export { store };
+

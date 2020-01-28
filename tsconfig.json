@@ -64,13 +64,19 @@
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
     "baseUrl": "./",
     "paths": {
+      "@assets": ["src/assets/"],
       "@assets/*": ["src/assets/*"],
+      "@components": ["src/components/"],
       "@components/*": ["src/components/*"],
+      "@config": ["src/config/"],
       "@config/*": ["src/config/*"],
+      "@store": ["src/store/"],
       "@store/*": ["src/store/*"],
+      "@routes": ["src/routes/"],
       "@routes/*": ["src/routes/*"],
-      "@scenes/*": ["src/scenes/*"],
+      "@services": ["src/services/"],
       "@services/*": ["src/services/*"],
+      "@utils": ["src/utils/"],
       "@utils/*": ["src/utils/*"]
     }
   },
