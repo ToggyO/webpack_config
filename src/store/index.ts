@@ -3,25 +3,34 @@ import createSagaMiddleware from 'redux-saga';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+import { saveUserData } from '../middlewares';
+
 import todosReducer, { todoTypes, todoSagas } from '@store/todos';
 import helloReducer, { helloTypes } from '@store/hello';
+import authReducer, { authTypes, authSagas } from '@store/auth';
 
 
 export interface ApplicationState {
 	todos: todoTypes.TodosState;
 	hello: helloTypes.HelloState;
+	auth: authTypes.AuthState;
 }
 
 function configureStore() {
 	const reducers = combineReducers({
 		todos: todosReducer,
 		hello: helloReducer,
+		auth: authReducer,
 	});
 	const sagas = {
 		...todoSagas,
+		...authSagas,
 	};
 	const sagaMiddleware = createSagaMiddleware();
-	const middlewares = [sagaMiddleware];
+	const middlewares = [
+		sagaMiddleware,
+		saveUserData,
+	];
 	const store = createStore(
 		reducers,
 		undefined,

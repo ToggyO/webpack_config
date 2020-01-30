@@ -38,14 +38,14 @@ module.exports = {
                     },
                 },
             },
-            // {
-            //     test: /\.css$/,
-            //     use: ['postcss-loader'],
-            // }
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
         ],
     },
     resolve: {
-        extensions: ['.js', '.ts', '.tsx'],
+        extensions: ['.js', '.ts', '.tsx', '.sass'],
         alias: {
             '@components': paths.resolveApp('src/components/'),
             '@config': paths.resolveApp('src/config/'),

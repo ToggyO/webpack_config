@@ -1,4 +1,14 @@
 /* eslint-disable */
+export interface ErrorCodes {
+  [key: string]: string;
+}
+
+export interface ErrorResponse {
+  code: string;
+  message: string;
+  field: string | null;
+}
+
 export const ERROR_CODES = {
   'sec.auth_data_invalid': 'Invalid email or password',
   'sec.confirmation_code_invalid': 'Code is invalid',
@@ -9,8 +19,3 @@ export const ERROR_CODES = {
   REFRESH_TOKEN_EXPIRED: 'sec.refresh_token_expired',
 };
 
-export interface ErrorResponseObject {
-  code: string;
-  message: string;
-  field: string | null;
-}

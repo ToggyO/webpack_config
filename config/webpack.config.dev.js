@@ -20,7 +20,29 @@ module.exports = merge(baseConfig, {
     module: {
         rules: [
             {
+                test: /\.module\.s(a|c)ss$/,
+                use: ['style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            sourceMap: true,
+                        },
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            config: {
+                                path: './config/',
+                            },
+                        },
+                    },
+                    'sass-loader',
+                ],
+            },
+            {
                 test: /\.s[ac]ss$/i,
+                exclude: /\.module.(s(a|c)ss)$/,
                 use: ['style-loader',
                     'css-loader',
                     {
@@ -40,7 +62,7 @@ module.exports = merge(baseConfig, {
         new HtmlWebpackPlugin({
             template: paths.appHtml,
         }),
-        // new ForkTsCheckerWebpackPlugin(),
+        new ForkTsCheckerWebpackPlugin(),
         new WorkboxPlugin.InjectManifest({
             swSrc: './src/service-worker.ts',
             swDest: 'service-worker.js',
@@ -49,10 +71,10 @@ module.exports = merge(baseConfig, {
     ],
     devServer: {
         contentBase: path.join(__dirname, 'public'),
-        port: 3001,
+        port: 3010,
         hot: true,
         compress: true,
-        open: true,
+        // open: true,
         historyApiFallback: true,
         clientLogLevel: 'info',
         watchContentBase: true,

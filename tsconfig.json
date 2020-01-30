@@ -70,6 +70,8 @@
       "@components/*": ["src/components/*"],
       "@config": ["src/config/"],
       "@config/*": ["src/config/*"],
+      "@pages": ["src/pages/"],
+      "@pages/*": ["src/pages/*"],
       "@store": ["src/store/"],
       "@store/*": ["src/store/*"],
       "@routes": ["src/routes/"],
@@ -81,6 +83,7 @@
     }
   },
   "include": [
-    "src"
+    "src",
+    "src/declarations.d.ts"
   ]
 }

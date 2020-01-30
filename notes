@@ -10,6 +10,7 @@
     - webpack.config.base: add extensions .ts, .tsx to resolve key
     - add new ForkTsCheckerWebpackPlugin() in 'plugins' array
     - add aliases (change file 'paths.js'), add aliases to tsconfig.json
+    - add SASS modules
 
 4. Change parameters in ./config/constants/path.js
 
@@ -45,3 +46,5 @@
 12. Add 'reselect' adn convert to typescript.
 
 13. Convert 'react' files to typescript (components & connect functions).
+
+14. Add 'Materialize css'.

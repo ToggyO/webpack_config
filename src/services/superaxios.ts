@@ -6,15 +6,14 @@ import { Token } from 'path-to-regexp';
 // import { authTypes } from '@ducks/auth/';
 import {
 	LOCAL_STORAGE_KEYS,
-	ErrorResponseObject,
+	ErrorResponse,
 	ERROR_CODES,
+	API_URL,
 } from '@config';
 import { getFromLocalState, writeToLocalState } from '@services/ls';
 // import { userLogout } from '@services/auth';
-import { store } from '@store';
+// import { store } from '@store';
 
-console.log(store);
-debugger;
 
 type Headers = { [key: string]: string } & { Authorization?: Token }
 let isAlreadyFetchingAccessToken = false;
@@ -61,17 +60,18 @@ superaxios.interceptors.response.use(
 			const { data = {} } = response;
 			const { errors } = data;
 			if (errors
-				.filter((item: ErrorResponseObject) =>
+				.filter((item: ErrorResponse) =>
 					item.code === ERROR_CODES.ACCESS_TOKEN_EXPIRED).length > 0) {
 				if (!isAlreadyFetchingAccessToken) {
 					isAlreadyFetchingAccessToken = true;
 					const oldRefreshToken = `${getFromLocalState(LOCAL_STORAGE_KEYS.REFRESH_TOKEN)}`;
-					store.dispatch({ type: authTypes.REFRESHING_TOKEN_REQUEST });
+					// store.dispatch({ type: authTypes.REFRESHING_TOKEN_REQUEST });
 					superaxios
-						.put(API_URL.AUTH.REFRESH_TOKEN, { refreshToken: oldRefreshToken })
+						.put(API_URL.GET_TODOS, { refreshToken: oldRefreshToken })
+						// .put(API_URL.AUTH.REFRESH_TOKEN, { refreshToken: oldRefreshToken })
 						// eslint-disable-next-line no-shadow
 						.then(response => {
-							store.dispatch({ type: authTypes.REFRESHING_TOKEN_SUCCESS });
+							// store.dispatch({ type: authTypes.REFRESHING_TOKEN_SUCCESS });
 							const { accessToken, refreshToken } = response.data.data;
 							writeToLocalState(LOCAL_STORAGE_KEYS.ACCESS_TOKEN, accessToken);
 							writeToLocalState(LOCAL_STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
@@ -79,8 +79,8 @@ superaxios.interceptors.response.use(
 							onAccessTokenFetched(accessToken);
 						})
 						.catch(() => {
-							store.dispatch({ type: authTypes.REFRESHING_TOKEN_ERROR });
-							store.dispatch({ type: authTypes.LOGOUT });
+							// store.dispatch({ type: authTypes.REFRESHING_TOKEN_ERROR });
+							// store.dispatch({ type: authTypes.LOGOUT });
 						});
 				}
 

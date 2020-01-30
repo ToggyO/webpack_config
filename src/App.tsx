@@ -1,19 +1,47 @@
 import React from 'react';
-import { renderRoutes } from 'react-router-config';
+import { renderRoutes, RouteConfig } from 'react-router-config';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 
 import './App.sass';
 
-// interface IRoutes {
-//   default:
-// }
+import { Header } from '@components/Header';
+import { LoginPageContainer } from '@pages/LoginPage';
+import { ApplicationState } from '@store';
+import { authActions, authSelectors } from '@store/auth';
 
-const App: React.FC = ({ route }) => {
-  return <div>{ renderRoutes(route.routes) }</div>;
-  // return <div>{ renderRoutes(route.routes) }</div>;
-};
+
+
+interface PropsFromDispatch {
+  logOut(): void;
+}
+
+const App: React.FC<RouteConfig> = ({ route, isAuth }: RouteConfig ) => (
+  <div className="main">
+    {!isAuth && <LoginPageContainer />}
+    <Header />
+    <div className="main-container">{renderRoutes(route.routes)}</div>
+  </div>
+);
 
 // App.default = {
 //   route: null,
 // };
 
-export default App;
+const mapStateToProps = (state: ApplicationState) => ({
+  isAuth: authSelectors.isAuthSelector(state),
+});
+
+const mapDispatchToProps = (dispatch: Dispatch): PropsFromDispatch => {
+  return {
+    logOut() {
+      dispatch(authActions.logOut());
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(App);
+

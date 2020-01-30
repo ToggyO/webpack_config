@@ -1,20 +1,22 @@
-import express from 'express';
-import path from 'path';
+import { Request, Response } from 'express';
 
-const port = process.env.PORT || 3001;
+const express = require('express');
+const path = require('path');
+
+const port = process.env.PORT || 3010;
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
-app.get('/ping', function (req, res) {
+app.get('/ping', function (_req: Request, res: Response) {
     return res.send('pong');
 });
 
-app.get('/service-worker.js', function (req, res) {
+app.get('/service-worker.js', function (_req: Request,res: Response) {
     res.sendFile(path.join(__dirname, 'dist', 'service-worker.js'));
 });
 
-app.get('/*', function (req, res) {
+app.get('/*', function (_req: Request, res: Response) {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
