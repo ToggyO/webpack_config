@@ -1,6 +1,5 @@
 import React from 'react';
 import { renderRoutes, RouteConfig } from 'react-router-config';
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import './App.sass';
@@ -8,17 +7,17 @@ import './App.sass';
 import { Header } from '@components/Header';
 import { LoginPageContainer } from '@pages/LoginPage';
 import { ApplicationState } from '@store';
-import { authActions, authSelectors } from '@store/auth';
+import { authSelectors } from '@store/auth';
 
-
-
-interface PropsFromDispatch {
-  logOut(): void;
+interface PropsFromState {
+  isAuth: boolean;
 }
 
-const App: React.FC<RouteConfig> = ({ route, isAuth }: RouteConfig ) => (
+type AllProps = RouteConfig & PropsFromState;
+
+const App: React.FC<AllProps> = ({ route, isAuth }: AllProps ) => (
   <div className="main">
-    {!isAuth && <LoginPageContainer />}
+    <LoginPageContainer isAuth={isAuth} />
     <Header />
     <div className="main-container">{renderRoutes(route.routes)}</div>
   </div>
@@ -32,16 +31,16 @@ const mapStateToProps = (state: ApplicationState) => ({
   isAuth: authSelectors.isAuthSelector(state),
 });
 
-const mapDispatchToProps = (dispatch: Dispatch): PropsFromDispatch => {
-  return {
-    logOut() {
-      dispatch(authActions.logOut());
-    },
-  };
-};
+// const mapDispatchToProps = (dispatch: Dispatch): PropsFromDispatch => {
+//   return {
+//     toggleIsAuth() {
+//       dispatch(authActions.toggleIsAuth());
+//     },
+//   };
+// };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  null,
 )(App);
 

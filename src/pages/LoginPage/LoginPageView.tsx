@@ -12,7 +12,7 @@ import s from './style.module.sass';
 import { FormProps, FormValues } from './intefaces';
 
 
-const LoginPageView: React.FC<FormProps> = ({ login, errorsFromBackend }) => {
+const LoginPageView: React.FC<FormProps> = ({ isAuth, login, errorsFromBackend }) => {
 	const formikRef: any = useRef(null);
 	const initialValues: FormValues = { email: '', password: '' };
 	useEffect(() => {
@@ -20,7 +20,7 @@ const LoginPageView: React.FC<FormProps> = ({ login, errorsFromBackend }) => {
 	}, [errorsFromBackend]);
 
 	return (
-  <div className={s.login_form}>
+  <div className={`${s.login_form} ${isAuth ? s.authorized : ''}`}>
     <Formik
       innerRef={formikRef}
       initialValues={initialValues}

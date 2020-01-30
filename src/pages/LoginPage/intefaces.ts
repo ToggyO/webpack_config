@@ -14,4 +14,8 @@ export interface PropsFromDispatch {
 	login(data: FormValues): void;
 }
 
-export type FormProps =  PropsFromState & PropsFromDispatch;
+export interface PropsFromParent {
+	isAuth: boolean;
+}
+
+export type FormProps =  PropsFromState & PropsFromDispatch & PropsFromParent;
