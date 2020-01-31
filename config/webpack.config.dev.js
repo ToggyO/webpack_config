@@ -14,7 +14,7 @@ module.exports = merge(baseConfig, {
     entry: paths.appIndexTsx,
     output: {
         filename: 'bundle.js',
-        path: path.appBuild,
+        path: paths.appBuild,
         publicPath: '/',
     },
     module: {
@@ -70,7 +70,7 @@ module.exports = merge(baseConfig, {
         new webpack.HotModuleReplacementPlugin(),
     ],
     devServer: {
-        contentBase: path.join(__dirname, 'public'),
+        contentBase: path.join(__dirname, 'dist'),
         port: 3010,
         hot: true,
         compress: true,

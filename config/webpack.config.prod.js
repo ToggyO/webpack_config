@@ -20,7 +20,7 @@ module.exports = merge(baseConfig, {
     entry: paths.appIndexTsx,
     output: {
         filename: 'bundle.[chunkhash].js',
-        path: path.appBuild,
+        path: paths.appBuild,
         publicPath: '/',
     },
     optimization: {
